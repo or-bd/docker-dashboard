@@ -1,0 +1,43 @@
+name: CI / CD
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  APP_NAME: docker_dashboard
+  APP_PORT: 3001
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create SSH key
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SERVER_SSH_KEY" > ~/.ssh/private.key
+          sudo chmod 600 ~/.ssh/private.key
+          cat >>~/.ssh/config <<END
+          Host production
+            HostName $SERVER_HOST
+            User $SERVER_USER
+            IdentityFile ~/.ssh/private.key
+            StrictHostKeyChecking no
+          END
+        shell: bash
+        env:
+          SERVER_SSH_KEY: ${{secrets.SERVER_SSH_KEY}}
+          SERVER_HOST: ${{secrets.SERVER_HOST}}
+          SERVER_USER: ${{secrets.SERVER_USER}}
+
+      - name: Pull and restart remote server process
+        run: |
+          ssh production '
+          cd '$SERVER_PROJECT_PATH' &&
+          git pull origin main &&
+          docker build -t '$APP_NAME'_app . &&
+          docker stop '$APP_NAME'_app || true && docker rm '$APP_NAME'_app || true
+          docker run --name '$APP_NAME'_app -v /var/run/docker.sock:/var/run/docker.sock --restart unless-stopped -p '$APP_PORT':3000 -d '$APP_NAME'_app
+          '
+        env:
+          SERVER_PROJECT_PATH: ${{secrets.SERVER_PROJECT_PATH}}
