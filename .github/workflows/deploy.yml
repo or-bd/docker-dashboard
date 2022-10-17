@@ -37,7 +37,7 @@ jobs:
           git pull origin main &&
           docker build -t '$APP_NAME'_app . &&
           docker stop '$APP_NAME'_app || true && docker rm '$APP_NAME'_app || true
-          docker run --name '$APP_NAME'_app -v /var/run/docker.sock:/var/run/docker.sock --restart unless-stopped -p '$APP_PORT':3000 -d '$APP_NAME'_app
+          docker run --name '$APP_NAME'_app --network=services-net -v /var/run/docker.sock:/var/run/docker.sock --restart unless-stopped -p '$APP_PORT':3000 -d '$APP_NAME'_app
           '
         env:
           SERVER_PROJECT_PATH: ${{secrets.SERVER_PROJECT_PATH}}
