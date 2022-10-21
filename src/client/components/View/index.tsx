@@ -1,7 +1,9 @@
-import React, {useState, useEffect} from 'react';
-import {ViewStyle} from './style';
+import React, {useEffect, useState} from 'react';
 import AppContext from '../../store/context';
-import {IContainer} from '../../types';
+import {IContainer} from '../../utils/types';
+import List from '../List';
+import {APP, SERVICE} from '../../utils/const';
+import {ViewStyle} from './style';
 
 const View = (): JSX.Element => {
   const [containers, setContainers] = useState<IContainer[]>([]);
@@ -13,9 +15,12 @@ const View = (): JSX.Element => {
   }, []);
 
   return (
-    <AppContext.Provider value={{ containers} }>
-      <ViewStyle>Hel</ViewStyle>;
-    </AppContext.Provider>
+    <ViewStyle>
+      <AppContext.Provider value={{containers}}>
+        <List name={SERVICE}/>
+        <List name={APP}/>
+      </AppContext.Provider>
+    </ViewStyle>
   );
 };
 

@@ -34,6 +34,12 @@ const App = async (): Promise<FastifyInstance> => {
         reply.send(docker.containerList);
       });
 
+      server.get('/logs/:id', async (request, reply) => {
+        const { id } = request.params as unknown as { id: string };
+        const docker = await dockerCommand(`logs ${id}`, {});
+        reply.send(docker);
+      });
+
       server.setErrorHandler((error, request, reply) => {
         console.log('error');
         const code = error.code ?? error.statusCode;

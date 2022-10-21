@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { IContainer } from '../types';
+import { IContainer } from '../utils/types';
 
 interface IContext {
   containers: IContainer[]
