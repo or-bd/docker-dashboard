@@ -125,10 +125,11 @@ Temporary Items
 
 # End of https://www.gitignore.io/api/macos
 
-dist
+dist/*
 data
 .idea
 jsonRequest.js
 test.js
 version.txt
+!src/index.html
 
