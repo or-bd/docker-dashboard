@@ -6,7 +6,7 @@ export const ViewStyle = styled.div`
   margin: 0 auto;
   display: flex;
   flex-flow: column wrap;
-  background-color: wheat;
+  //background-color: wheat;
 
   @media (max-width: 768px) {
     width: 95%;

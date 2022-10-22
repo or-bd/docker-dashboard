@@ -10,6 +10,7 @@ export const Modal = styled.div`
   border-radius: 6px;
   overflow: hidden;
   max-width: 90%;
+  border: 1px solid #191b1f;
   z-index: 2;
 `;
 
@@ -17,7 +18,7 @@ export const Backdrop = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgba(0,0,0,0.6);
+  background-color: rgba(0,0,0,0.4);
   width: 100%;
   height: 100%;
   z-index: 1;
@@ -27,6 +28,7 @@ export const LogHeader = styled.div`
   font-size: 22px;
   font-weight: bold;
   padding: 16px 10px;
+  background-color: #191b1f;
 `;
 
 export const LogStyle = styled.div`
@@ -36,9 +38,12 @@ export const LogStyle = styled.div`
   overflow-y: scroll;
   padding: 10px;
   flex-flow: row wrap;
-  background-color: lightgoldenrodyellow;
+  background-color: black;
   
   span {
+    font-weight: normal;
     line-height: 27px;
+    color: silver;
+    font-family: monospace,monospace;
   }
 `;

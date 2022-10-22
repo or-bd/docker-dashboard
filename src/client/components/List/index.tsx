@@ -1,7 +1,7 @@
 import React, {useCallback, useContext} from 'react';
 import AppContext from '../../store/context';
 import Container from '../Container';
-import { ListStyle } from './style';
+import {ListStyle, ListTitle} from './style';
 
 interface IProps {
   name: string;
@@ -16,7 +16,7 @@ const List = ({ name }: IProps): JSX.Element => {
 
   return (
     <>
-      <h3>{name}</h3>
+      <ListTitle>{name} suffix</ListTitle>
       <ListStyle>
         {items().map((container) => <Container key={container.names} {...container} />)}
       </ListStyle>

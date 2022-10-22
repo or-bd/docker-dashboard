@@ -4,5 +4,12 @@ export const ListStyle = styled.div`
   display: flex;
   max-width: 100%;
   flex-flow: row wrap;
-  background-color: lightsalmon;
 `;
+
+export const ListTitle = styled.div`
+  color: white;
+  font-size: 22px;
+  margin: 20px 0;
+  font-weight: 400;
+`;
+
