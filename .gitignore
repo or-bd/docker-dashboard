@@ -130,5 +130,5 @@ data
 jsonRequest.js
 test.js
 version.txt
-!src/index.html
+!src/client/index.html
 

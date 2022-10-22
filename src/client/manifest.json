@@ -1,0 +1,24 @@
+{
+  "name": "DockerDashboard",
+  "short_name": "DockerDash",
+  "description": "",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#111217",
+  "background_color": "#111217",
+  "orientation": "portrait",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "assets/logo_192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/logo_512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}

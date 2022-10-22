@@ -3,6 +3,7 @@ import Logs from '../Logs';
 import {IContainer, IContainerLog, IContainerPortInfo} from '../../utils/types';
 import {Actions, ContainerStyle, LogsButton, Status} from './style';
 import InfoRow from './InfoRow';
+import {AUTH_TOKEN} from '../../utils/const';
 
 const parsePort = (port: IContainer['ports']): IContainerPortInfo => {
   const portInfo: IContainerPortInfo = { exposed: '', internal: '' };
@@ -25,9 +26,10 @@ const Container = (props: IContainer): JSX.Element => {
   const getPort = useCallback(() => parsePort(props.ports), []);
 
   const getLogs = (): void => {
-    fetch(`/logs/${props['container id']}`).then((response) => {
-      response.json().then((results) => {
-        const rows = results.raw.split('\n');
+    fetch(`/logs/${props['container id']}`, { headers: { 'token': AUTH_TOKEN() } }).then((response) => {
+      if(!response.ok) return console.log(response.statusText);
+      response.json().then((response) => {
+        const rows = response.raw.split('\n');
         setLogs({ containerName: props.names, rows});
       });
     }).catch(console.log);

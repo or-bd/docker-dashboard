@@ -14,6 +14,6 @@
         "resolveJsonModule": true,
         "isolatedModules": true
     },
-    "include": [".", "webpack.config.ts"],
+    "include": ["."],
     "exclude": ["../../node_modules", "dist"]
 }

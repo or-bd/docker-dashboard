@@ -68,7 +68,7 @@ const webpackConfig: WebpackConfigType = ({ ENV }) => {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: `${APP_DIR}/index.html`,
+        template: `${APP_DIR}/client/index.html`,
       }),
       new DefinePlugin({
         NODE_ENV: JSON.stringify(ENV),

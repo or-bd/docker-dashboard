@@ -63,7 +63,7 @@ var webpackConfig = function (_a) {
         },
         plugins: [
             new HtmlWebpackPlugin({
-                template: "".concat(APP_DIR, "/index.html"),
+                template: "".concat(APP_DIR, "/client/index.html"),
             }),
             new webpack_1.DefinePlugin({
                 NODE_ENV: JSON.stringify(ENV),
