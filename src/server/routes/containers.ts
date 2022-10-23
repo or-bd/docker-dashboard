@@ -13,7 +13,7 @@ export default async (server: FastifyInstance): Promise<void> => {
   server.addHook('preHandler', authMiddleware);
 
   server.get('/', async (request, reply) => {
-    const docker = await dockerCommand('ps', {});
+    const docker = await dockerCommand('ps -a', {});
     reply.send(docker.containerList);
   });
 
