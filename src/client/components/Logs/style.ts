@@ -46,6 +46,7 @@ export const LogStyle = styled.div`
     color: silver;
     font-family: monospace,monospace;
     margin-bottom: 12px;
+    font-size: 12px !important;
   }
 `;
 
