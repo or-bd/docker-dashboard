@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Modal = styled.div`
-  position: absolute;
+  position: fixed;
   top: 20px;
   left: 0;
   right: 0;
@@ -42,8 +42,29 @@ export const LogStyle = styled.div`
   
   span {
     font-weight: normal;
-    line-height: 27px;
+    line-height: 23px;
     color: silver;
     font-family: monospace,monospace;
+    margin-bottom: 12px;
+  }
+`;
+
+export const CloseButton = styled.div`
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: flex;
+  background-color: #818181;
+  justify-content: center;
+  align-items: center;
+  width: 10px;
+  height:10px;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  
+  &::after {
+    color: black;
+    content: "X";
   }
 `;

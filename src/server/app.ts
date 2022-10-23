@@ -5,7 +5,7 @@ import ContainersRouter from './routes/containers';
 
 const App = async (): Promise<FastifyInstance> => {
   try {
-    const server = fastify();
+    const server = fastify({ logger: true, disableRequestLogging: true });
     server.register(staticPlugin, { root: __dirname, prefix: '/' });
 
     server.get('/', (req, reply) => {
@@ -29,8 +29,6 @@ const App = async (): Promise<FastifyInstance> => {
   }
 };
 
-App().then((app) => {
-  app.listen({port: 3000, host: '0.0.0.0'}, () => {
-    console.log('server is listening on 3000');
-  });
+App().then(async (app) => {
+  await app.listen({port: 3000, host: '0.0.0.0'});
 });

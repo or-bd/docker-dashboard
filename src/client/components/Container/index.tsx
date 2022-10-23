@@ -26,7 +26,7 @@ const Container = (props: IContainer): JSX.Element => {
   const getPort = useCallback(() => parsePort(props.ports), []);
 
   const getLogs = (): void => {
-    fetch(`/logs/${props['container id']}`, { headers: { 'token': AUTH_TOKEN() } }).then((response) => {
+    fetch(`containers/logs/${props['container id']}`, { headers: { 'token': AUTH_TOKEN() } }).then((response) => {
       if(!response.ok) return console.log(response.statusText);
       response.json().then((response) => {
         const rows = response.raw.split('\n');

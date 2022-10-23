@@ -4,6 +4,7 @@ import {TOKEN} from '../const';
 
 const authMiddleware = async (request: FastifyRequest): Promise<void> => {
   if(request.headers['token'] !== TOKEN) {
+    request.log.error({msg: 'Unauthorized request', headers: request.headers});
     throw { code: 401, message: 'Unauthorized request' };
   }
 };

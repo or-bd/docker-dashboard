@@ -12,6 +12,9 @@ export default async (server: FastifyInstance): Promise<void> => {
   server.post('/login', async (request, reply) => {
     const { user, pass } = request.body as unknown as { user: string; pass: string };
     const token = login(user, pass);
+    if(!token) {
+      request.log.error({msg: 'Login failed', body: request.body, headers: request.headers});
+    }
     reply.send({ token });
   });
 };
