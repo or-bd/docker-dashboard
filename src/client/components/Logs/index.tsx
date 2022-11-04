@@ -18,8 +18,8 @@ const Logs = ({containerName, rows, setLogs}: IProps): JSX.Element => {
         <LogHeader>{containerName}</LogHeader>
         <CloseButton onClick={closeModal} />
         <LogStyle>
-          {rows.map((logRow, i) => <span key={i}>{logRow}</span>)}
-          {rows.length === 1 && !rows[0] ? <span>Logs not found :/</span> : null}
+          {rows.map((logRow, i) => <div key={i}>{logRow}</div>)}
+          {rows.length === 1 && !rows[0] ? <div>Logs not found :/</div> : null}
         </LogStyle>
       </Modal>
       <Backdrop />

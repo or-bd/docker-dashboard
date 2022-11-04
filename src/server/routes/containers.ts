@@ -19,7 +19,7 @@ export default async (server: FastifyInstance): Promise<void> => {
 
   server.get('/logs/:id', async (request, reply) => {
     const {id} = request.params as unknown as { id: string };
-    const docker = await dockerCommand(`logs ${id}`, {});
+    const docker = await dockerCommand(`logs -n 15 ${id}`, {});
     reply.send(docker);
   });
 };

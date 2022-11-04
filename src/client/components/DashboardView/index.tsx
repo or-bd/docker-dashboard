@@ -36,8 +36,8 @@ const View = (): JSX.Element => {
     <ViewStyle>
       <h3>Last update: {new Date(updatedTime).toLocaleString()}</h3>
       <AppContext.Provider value={{containers}}>
-        <List name={SERVICE}/>
-        <List name={APP}/>
+        <List name={SERVICE} updatedTime={updatedTime}/>
+        <List name={APP} updatedTime={updatedTime}/>
       </AppContext.Provider>
     </ViewStyle>
   );

@@ -5,20 +5,21 @@ import {ListStyle, ListTitle} from './style';
 
 interface IProps {
   name: string;
+  updatedTime: number;
 }
 
-const List = ({ name }: IProps): JSX.Element => {
+const List = ({ name, updatedTime }: IProps): JSX.Element => {
   const { containers } = useContext(AppContext);
 
   const items = useCallback(() => {
     return containers.filter((container) => container.names.includes(name));
-  }, [containers.length, name]);
+  }, [updatedTime]);
 
   return (
     <>
       <ListTitle>{name} suffix</ListTitle>
       <ListStyle>
-        {items().map((container) => <Container key={container.names} {...container} />)}
+        {items().map((container) => <Container key={container['container id']} {...container} />)}
       </ListStyle>
     </>
   );

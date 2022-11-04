@@ -32,15 +32,13 @@ export const LogHeader = styled.div`
 `;
 
 export const LogStyle = styled.div`
-  display: flex;
   max-width: 100%;
   max-height: 400px;
   overflow-y: scroll;
   padding: 10px;
-  flex-flow: row wrap;
   background-color: black;
   
-  span {
+  div {
     font-weight: normal;
     line-height: 23px;
     color: silver;

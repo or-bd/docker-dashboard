@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useState, useRef} from 'react';
 import Logs from '../Logs';
 import {IContainer, IContainerLog, IContainerPortInfo} from '../../utils/types';
 import {Actions, ContainerStyle, LogsButton, Status} from './style';
@@ -20,26 +20,40 @@ const parsePort = (port: IContainer['ports']): IContainerPortInfo => {
   return portInfo;
 };
 
+const getLogs = (containerId: string): Promise<IContainerLog['rows']> => new Promise((resolve) => {
+  fetch(`containers/logs/${containerId}`, { headers: { 'token': AUTH_TOKEN() } }).then((response) => {
+    if(!response.ok) return console.log(response.statusText);
+    response.json().then((data) => {
+      const rows = data.raw.split('\n');
+      resolve(rows);
+    });
+  }).catch(console.log);
+});
+
 const Container = (props: IContainer): JSX.Element => {
   const [logs, setLogs] = useState<IContainerLog>();
+  const watchLogRef = useRef<NodeJS.Timer>();
 
   const getPort = useCallback(() => parsePort(props.ports), []);
 
-  const getLogs = (): void => {
-    fetch(`containers/logs/${props['container id']}`, { headers: { 'token': AUTH_TOKEN() } }).then((response) => {
-      if(!response.ok) return console.log(response.statusText);
-      response.json().then((response) => {
-        const rows = response.raw.split('\n');
-        setLogs({ containerName: props.names, rows});
-      });
-    }).catch(console.log);
+  const watchLogs = async (): Promise<void> => {
+    const logRows = await getLogs(props['container id']);
+    if(logRows && logRows.length) {
+      setLogs({ containerName: props.names, rows: logRows });
+    }
+    watchLogRef.current = setTimeout(watchLogs, 2000);
+  };
+
+  const clearLogs = (): void => {
+    setLogs(undefined);
+    clearTimeout(watchLogRef.current);
   };
 
   return (
     <>
       <ContainerStyle>
         <Actions>
-          <LogsButton onClick={getLogs}>Logs</LogsButton>
+          <LogsButton onClick={watchLogs}>Logs</LogsButton>
           <Status isUp={props.status.includes('Up')}/>
         </Actions>
         <InfoRow name="Id" value={props['container id']} />
@@ -49,7 +63,7 @@ const Container = (props: IContainer): JSX.Element => {
         <InfoRow name="Created" value={props.created} />
         <InfoRow name="Port" value={JSON.stringify(getPort())} />
       </ContainerStyle>
-      {logs ? <Logs {...logs} setLogs={setLogs} /> : null}
+      {logs ? <Logs {...logs} setLogs={clearLogs} /> : null}
     </>
   );
 };
